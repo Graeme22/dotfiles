@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/graeme/Github/snotify/snotify'
+let g:netrw_dirhist_6='/home/graeme/.config/dunst/scripts'
+let g:netrw_dirhist_5='/home/graeme/.config/dunst'
+let g:netrw_dirhist_4='/etc/X11/xorg.conf.d'
+let g:netrw_dirhist_3='/home/graeme/.vim'
+let g:netrw_dirhist_2='/home/graeme/.cache/wal'
+let g:netrw_dirhist_1='/home/graeme/.config'
