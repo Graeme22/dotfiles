@@ -24,11 +24,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
+import random
 from typing import List  # noqa: F401
+
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
+from libqtile import hook
+
 from bluetooth import Bluetooth
+
+wallpapers = []
+path = '/home/graeme/.config/qtile/wallpapers'
+for img in os.listdir(path):
+    full_path = os.path.join(path, img)
+    if os.path.isfile(full_path):
+        wallpapers.append(img)
+
+choice = random.choice(wallpapers)
+os.system('wal -q -i ' + os.path.join(path, choice))
+
+colors = []
+with open('/home/graeme/.cache/wal/colors', 'r') as file:
+    for i in range(8):
+        colors.append(file.readline().strip())
+colors.append('#ffffff')
 
 mod = "mod4"
 
@@ -82,18 +103,9 @@ for i in groups:
             desc="Switch to & move focused window to group {}".format(i.name)),
     ])
 
-colors = {
-    'black': '#131a17',
-    'blue': '#699AAA',
-    'grey': '#929FA8',
-    'cream': '#C5C2B1',
-    'white': '#cadeea',
-	'green': '#137866',
-}
-
 layout_cfg = {
-	'border_width': 2,
-	'border_focus': colors['blue'],
+	'border_width': 3,
+	'border_focus': colors[1],
 	'margin': 8,
 }
 
@@ -105,7 +117,7 @@ layouts = [
 widget_defaults = dict(
     font='Ubuntu Mono',
     fontsize=14,
-	foreground=colors['black'],
+	foreground=colors[-1],
     padding=2,
 )
 extension_defaults = widget_defaults.copy()
@@ -114,34 +126,33 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayoutIcon(background=colors['green']),
-                widget.Spacer(length=5, background=colors['green']),
-				widget.TextBox(text='◣', background=colors['blue'], foreground=colors['green'], fontsize=32, width=27, padding=-5),
-                widget.GroupBox(background=colors['blue'], this_current_screen_border=colors['black'], this_screen_border=colors['black'], inactive=colors['black']),
-				widget.TextBox(text='◣', background=colors['black'], foreground=colors['blue'], fontsize=32, width=27, padding=-5),
-                widget.WindowName(foreground=colors['white']),
+                widget.CurrentLayoutIcon(background=colors[6]),
+                widget.Spacer(length=5, background=colors[6]),
+				widget.TextBox(text='◣', background=colors[1], foreground=colors[6], fontsize=32, width=27, padding=-5),
+                widget.GroupBox(background=colors[1], this_current_screen_border=colors[0], this_screen_border=colors[0], inactive=colors[0]),
+				widget.TextBox(text='◣', background=colors[0], foreground=colors[1], fontsize=32, width=27, padding=-5),
+                widget.WindowName(),
 				widget.Spacer(),
-                widget.TextBox(text='◥', background=colors['black'], foreground=colors['green'], fontsize=32, width=27),
-                Bluetooth(format='  Bluetooth: {status}', background=colors['green'], foreground=colors['white']),
-				widget.TextBox(text='◥', background=colors['green'], foreground=colors['blue'], fontsize=32, width=27),
-                widget.KeyboardLayout(fmt='  Keyboard: {}', background=colors['blue']),
-				widget.TextBox(text='◥', background=colors['blue'], foreground=colors['green'], fontsize=32, width=27),
-				widget.Battery(charge_char='+', discharge_char='-', format='  Power: {char}{percent:2.0%}', background=colors['green'], foreground=colors['white']),
-				widget.TextBox(text='◥', background=colors['green'], foreground=colors['blue'], fontsize=32, width=27),
-				widget.Volume(background=colors['blue'], fmt='  Volume: {}'),
-				widget.TextBox(text='◥', background=colors['blue'], foreground=colors['green'], fontsize=32, width=27),
-                widget.CPU(background=colors['green'], format='  CPU: {freq_current}GHz {load_percent}%', foreground=colors['white']),
-				widget.TextBox(text='◥', background=colors['green'], foreground=colors['blue'], fontsize=32, width=27),
-                widget.Memory(background=colors['blue'], fmt='  RAM: {}'),
-                widget.TextBox(text='◥', background=colors['blue'], foreground=colors['green'], fontsize=32, width=27),
-                widget.Wlan(interface='wlp1s0', background=colors['green'], format='  Network: {essid}', foreground=colors['white']),
-				widget.TextBox(text='◥', background=colors['green'], foreground=colors['blue'], fontsize=32, width=27),
-                widget.Clock(format='  %A, %B %d %H:%M ', background=colors['blue']),
+                widget.TextBox(text='◥', background=colors[0], foreground=colors[6], fontsize=32, width=27),
+                Bluetooth(hci='dev_41_42_30_00_18_CD', format='  Bluetooth: {status}', background=colors[6], foreground=colors[-1]),
+				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
+                widget.KeyboardLayout(fmt='  Keyboard: {}', background=colors[1]),
+				widget.TextBox(text='◥', background=colors[1], foreground=colors[6], fontsize=32, width=27),
+				widget.Battery(charge_char='+', discharge_char='-', format='  Power: {char}{percent:2.0%}', background=colors[6]),
+				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
+				widget.Volume(background=colors[1], fmt='  Volume: {}'),
+				widget.TextBox(text='◥', background=colors[1], foreground=colors[6], fontsize=32, width=27),
+                widget.CPU(background=colors[6], format='  CPU: {freq_current}GHz {load_percent}%'),
+				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
+                widget.Memory(background=colors[1], fmt='  RAM: {}'),
+                widget.TextBox(text='◥', background=colors[1], foreground=colors[6], fontsize=32, width=27),
+                widget.Wlan(interface='wlp1s0', background=colors[6], format='  Network: {essid}'),
+				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
+                widget.Clock(format='  %A, %B %d %H:%M ', background=colors[1]),
             ],
             20,
-			background=colors['black'],
+			background=colors[0],
         ),
-		wallpaper='/home/graeme/.config/qtile/wallpaper.jpg',
     ),
 ]
 
