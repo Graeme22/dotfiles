@@ -25,6 +25,7 @@
 # SOFTWARE.
 
 import os
+import subprocess
 import random
 from typing import List  # noqa: F401
 
@@ -32,8 +33,14 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen
 from libqtile.lazy import lazy
 from libqtile import hook
+from libqtile import qtile
 
 from bluetooth import Bluetooth
+
+@hook.subscribe.startup
+def autostart():
+    home = os.path.expanduser('~/.local/bin/launchdunst.sh')
+    subprocess.call([home])
 
 wallpapers = []
 path = '/home/graeme/.config/qtile/wallpapers'
@@ -59,7 +66,7 @@ keys = [
 
     # quick launch
     Key([mod], "Return", lazy.spawn("alacritty"), desc="Launch terminal"),
-    Key([mod], "b", lazy.spawn("brave")),
+    Key([mod], "b", lazy.spawn("firefox")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -81,13 +88,13 @@ keys = [
 
 	# lock screen / power off / reboot
 	Key([mod], "l", lazy.spawn("betterlockscreen --lock blur")),
-    Key([mod], "q", lazy.spawn("systemctl poweroff")),
+    Key([mod, "control"], "q", lazy.shutdown()),
 
     # keyboard layouts
     Key([mod], "k", lazy.spawn("bash /home/graeme/.local/bin/togglekeyboard.sh")),
 
     # screenshot
-    Key([mod], "x", lazy.spawn("scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures'")),
+    Key([mod], "x", lazy.spawn("scrot '%Y-%m-%d-%T_$wx$h_scrot.png' -e 'mv $f ~/Pictures'")),
 ]
 
 groups = [Group(i) for i in "asdf"]
@@ -134,11 +141,11 @@ screens = [
                 widget.WindowName(),
 				widget.Spacer(),
                 widget.TextBox(text='◥', background=colors[0], foreground=colors[6], fontsize=32, width=27),
-                Bluetooth(hci='dev_41_42_30_00_18_CD', format='  Bluetooth: {status}', background=colors[6], foreground=colors[-1]),
+                Bluetooth(hci='dev_41_42_30_00_18_CD', format='  Bluetooth: {status}', background=colors[6], foreground=colors[-1], mouse_callbacks={'Button2': lambda: qtile.cmd_spawn('bash /home/graeme/.local/bin/bluetooth.sh')}),
 				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
-                widget.KeyboardLayout(fmt='  Keyboard: {}', background=colors[1]),
+                widget.KeyboardLayout(fmt='  Keyboard: {}', background=colors[1], mouse_callbacks={'Button2': lambda: qtile.cmd_spawn('bash /home/graeme/.local/bin/togglekeyboard.sh')}),
 				widget.TextBox(text='◥', background=colors[1], foreground=colors[6], fontsize=32, width=27),
-				widget.Battery(charge_char='+', discharge_char='-', format='  Power: {char}{percent:2.0%}', background=colors[6]),
+				widget.Battery(charge_char='+', discharge_char='-', full_char='', show_short_text=False, format='  Power: {char}{percent:2.0%}', background=colors[6]),
 				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
 				widget.Volume(background=colors[1], fmt='  Volume: {}'),
 				widget.TextBox(text='◥', background=colors[1], foreground=colors[6], fontsize=32, width=27),
@@ -146,7 +153,7 @@ screens = [
 				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
                 widget.Memory(background=colors[1], fmt='  RAM: {}'),
                 widget.TextBox(text='◥', background=colors[1], foreground=colors[6], fontsize=32, width=27),
-                widget.Wlan(interface='wlp1s0', background=colors[6], format='  Network: {essid}'),
+                widget.Wlan(interface='wlp1s0', background=colors[6], disconnected_message='  Disconnected', format='  Network: {essid}'),
 				widget.TextBox(text='◥', background=colors[6], foreground=colors[1], fontsize=32, width=27),
                 widget.Clock(format='  %A, %B %d %H:%M ', background=colors[1]),
             ],
@@ -165,12 +172,6 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
-main = None  # WARNING: this is deprecated and will be removed soon
-follow_mouse_focus = False
-bring_front_click = False
-cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     {'wmclass': 'confirm'},
@@ -188,7 +189,14 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
 ])
+
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: List
+main = None  # WARNING: this is deprecated and will be removed soon
+follow_mouse_focus = False
+bring_front_click = False
+cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-wmname = "qtile"
+wmname = "LG3D"
