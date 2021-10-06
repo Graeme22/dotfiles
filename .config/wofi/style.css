@@ -1,0 +1,23 @@
+* {
+	font-family: 'Hack';
+	border-radius: 0px;
+}
+
+#window {
+	background-color: rgba(--wofi-rgb-color1, 1.0);
+	font-size: 14px;
+}
+
+#entry {
+	color: #ffffff;
+}
+
+#entry:selected {
+	background-color: rgba(--wofi-rgb-color6, 1.0);
+}
+
+#input:focus {
+	border: none;
+	color: #000000;
+	background-color: #ffffff;
+}
