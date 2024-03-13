@@ -13,13 +13,10 @@ from libqtile import qtile
 
 @hook.subscribe.startup
 def autostart():
-    dunst = os.path.expanduser('~/.local/bin/launchdunst.sh')
-    bus = os.path.expanduser('~/.local/bin/launchbus.sh')
-    spotify = os.path.expanduser('~/.local/bin/launchspotifyd.sh')
+    kp = os.path.expanduser('~/.local/bin/keepass.sh')
+    dunst = os.path.expanduser('~/.local/bin/dunst.sh')
+    subprocess.call([kp])
     subprocess.call([dunst])
-    subprocess.call([bus])
-    subprocess.call([spotify])
-
     os.environ['DISPLAY'] = ':1'
 
 
@@ -81,9 +78,9 @@ keys = [
     Key([mod, 'shift'], 'r', lazy.restart(), desc='Restart qtile'),
 
     # Volume control
-	Key([], 'XF86AudioRaiseVolume', lazy.spawn('amixer sset Master 5%+ unmute')),
-	Key([], 'XF86AudioLowerVolume', lazy.spawn('amixer sset Master 5%- unmute')),
-	Key([], 'XF86AudioMute', lazy.spawn('amixer -q set Master toggle')),
+	#Key([], 'XF86AudioRaiseVolume', lazy.spawn('amixer sset Master 5%+ unmute')),
+	#Key([], 'XF86AudioLowerVolume', lazy.spawn('amixer sset Master 5%- unmute')),
+	#Key([], 'XF86AudioMute', lazy.spawn('amixer -q set Master toggle')),
 
 	# Brightness
 	Key([], 'XF86MonBrightnessUp', lazy.spawn('blight set +5%')),
@@ -140,12 +137,12 @@ screens = [
                 widget.GroupBox(fmt=' {} ', background=colors[1], this_current_screen_border=colors[0], this_screen_border=colors[0], inactive=colors[0]),
                 widget.WindowName(format=' {state}{name} '),
                 #widget.Bluetooth(hci='/dev_41_42_30_00_18_CD', fmt=' Bluetooth: {} ', background=colors[6]),
-                widget.KeyboardLayout(fmt=' Keyboard: {} ', background=colors[1], configured_keyboards=['us', 'es']),
-				widget.Battery(charge_char='+', discharge_char='-', full_char='', show_short_text=False, format=' Power: {char}{percent:2.0%} ', background=colors[6], notify_below=10),
-				widget.Volume(background=colors[1], fmt=' Volume: {} '),
+                widget.KeyboardLayout(fmt=' Keyboard: {} ', background=colors[1], configured_keyboards=['latam', 'us']),
+				#widget.Battery(charge_char='+', discharge_char='-', full_char='', show_short_text=False, format=' Power: {char}{percent:2.0%} ', background=colors[6], notify_below=10),
+				#widget.Volume(background=colors[1], fmt=' Volume: {} '),
                 widget.CPU(background=colors[6], format=' CPU: {freq_current}GHz {load_percent}% '),
                 widget.Memory(background=colors[1], fmt=' RAM: {} '),
-                widget.Wlan(interface='wlan0', background=colors[6], disconnected_message=' Disconnected ', format=' Network: {essid} '),
+                widget.Wlan(interface='wlan1', background=colors[6], disconnected_message=' Disconnected ', format=' Network: {essid} '),
                 widget.Clock(format=' %A, %B %d %H:%M ', background=colors[1]),
             ],
             20,
