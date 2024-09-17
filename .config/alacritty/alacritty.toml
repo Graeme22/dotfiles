@@ -1,0 +1,36 @@
+[window]
+opacity = 0.8
+
+[colors.bright]
+black = "#131a17"
+blue = "#699aaa"
+cyan = "#699aaa"
+green = "#137866"
+magenta = "#929FA8"
+red = "#929FA8"
+white = "#cadeea"
+yellow = "#c5c2b1"
+
+[colors.cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+[colors.normal]
+black = "#131a17"
+blue = "#699aaa"
+cyan = "#699aaa"
+green = "#137866"
+magenta = "#929FA8"
+red = "#929FA8"
+white = "#cadeea"
+yellow = "#c5c2b1"
+
+[colors.primary]
+background = "#131a17"
+foreground = "#cadeea"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 11.0
