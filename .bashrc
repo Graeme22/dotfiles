@@ -11,9 +11,9 @@ alias ls='ls --color=auto'
 PS1="\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;34m\]\h\[\033[00m\] \[\033[01;36m\]\W\[\033[00m\] $ "
 
 export EDITOR=vim
-export TT_USERNAME=graeme22
-export TT_PASSWORD="CM,TXk):|S2sB[~;<]u^9L/g^"
-export TT_ACCOUNT=5WU50895
+export TT_USERNAME=????????
+export TT_PASSWORD=????????
+export TT_ACCOUNT=????????
 export PATH=$PATH:/home/graeme/.local/bin
 export PATH=$PATH:/home/graeme/.modular/bin
 
