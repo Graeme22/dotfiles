@@ -184,6 +184,12 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- Github copilot binding
+vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -192,6 +198,8 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- splits
+vim.keymap.set('n', '<C-v>', '<C-w>v', { desc = 'Split window vertically' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -235,6 +243,21 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'github/copilot.vim',
   {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    event = 'VimEnter',
+    config = function()
+      require('rose-pine').setup {
+        variant = 'main', -- auto, main, moon, or dawn
+        styles = {
+          bold = true,
+          italic = false,
+          transparency = true,
+        },
+      }
+    end,
+  },
+  {
     'catppuccin/nvim',
     name = 'catppuccin',
     priority = 1000,
@@ -243,22 +266,11 @@ require('lazy').setup({
       require('catppuccin').setup {
         flavour = 'auto', -- latte, frappe, macchiato, mocha
         term_colors = true, -- set the terminal colors
-        -- transparent_background = true, -- disables setting the background color.
-        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-          comments = { 'italic' }, -- Change the style of comments
-          conditionals = { 'italic' },
-          loops = {},
-          functions = {},
-          keywords = {},
-          strings = {},
-          variables = {},
-          numbers = {},
-          booleans = {},
-          properties = {},
-          types = {},
-          operators = {},
-        },
+        transparent_background = true, -- disables setting the background color.
         default_integrations = true,
+        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+          conditionals = {},
+        },
         integrations = {
           cmp = true,
           gitsigns = true,
@@ -267,14 +279,56 @@ require('lazy').setup({
           notify = false,
           fidget = true,
           mason = true,
-          -- harpoon = true,
+          harpoon = true,
           mini = {
             enabled = true,
             indentscope_color = '',
           },
-          -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
         },
       }
+    end,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon:setup()
+
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end, { desc = 'Add buffer to Harpoon list' })
+      vim.keymap.set('n', '<leader>e', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = 'Show Harpoon list' })
+
+      vim.keymap.set('n', '<C-u>', function()
+        harpoon:list():select(1)
+      end, { desc = 'Jump to 1st buffer' })
+      vim.keymap.set('n', '<C-i>', function()
+        harpoon:list():select(2)
+      end, { desc = 'Jump to 2nd buffer' })
+      vim.keymap.set('n', '<C-o>', function()
+        harpoon:list():select(3)
+      end, { desc = 'Jump to 3rd buffer' })
+      vim.keymap.set('n', '<C-p>', function()
+        harpoon:list():select(4)
+      end, { desc = 'Jump to 4th buffer' })
+
+      -- Toggle previous & next buffers stored within Harpoon list
+      vim.keymap.set('n', '<leader>j', function()
+        harpoon:list():prev()
+      end, { desc = 'Jump to previous buffer' })
+      vim.keymap.set('n', '<leader>k', function()
+        harpoon:list():next()
+      end, { desc = 'Jump to next buffer' })
+      -- Clear harpoon list
+      vim.keymap.set('n', '<C-d', function()
+        harpoon:list():clear()
+      end, { desc = 'Clear Harpoon list' })
     end,
   },
   -- NOTE: Plugins can also be added by using a table,
@@ -283,7 +337,23 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to force a plugin to be loaded.
   --
-
+  {
+    'christoomey/vim-tmux-navigator',
+    cmd = {
+      'TmuxNavigateLeft',
+      'TmuxNavigateDown',
+      'TmuxNavigateUp',
+      'TmuxNavigateRight',
+      'TmuxNavigatePrevious',
+    },
+    keys = {
+      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
+    },
+  },
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
@@ -832,7 +902,7 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = cmp.mapping.confirm { select = true },
           ['<C-j>'] = cmp.mapping.select_next_item(),
           ['<C-k>'] = cmp.mapping.select_prev_item(),
 
@@ -987,6 +1057,17 @@ require('lazy').setup({
   },
 })
 
-vim.cmd.colorscheme 'catppuccin'
+local file = '/home/graeme/.cache/wal/colors'
+local function get_first_line(f)
+  for line in io.lines(f) do
+    return line
+  end
+end
+local do_cat = get_first_line(file) == '#130c13'
+if do_cat then
+  vim.cmd.colorscheme 'catppuccin'
+else
+  vim.cmd.colorscheme 'rose-pine'
+end
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

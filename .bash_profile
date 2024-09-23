@@ -20,3 +20,5 @@ export XDG_CURRENT_DESKTOP=qtile
 if [ "$(tty)" = "/dev/tty1" ]; then
 	exec startx
 fi
+
+. "$HOME/.cargo/env"

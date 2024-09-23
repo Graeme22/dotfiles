@@ -3,10 +3,10 @@ import random
 import subprocess
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget
+from libqtile import bar, hook, widget
 from libqtile.config import Group, Key, Screen
+from libqtile.layout.bsp import Bsp
 from libqtile.lazy import lazy
-from libqtile import hook
 
 
 @hook.subscribe.startup
@@ -27,7 +27,7 @@ for img in os.listdir(wallpaper_path):
 
 choice = random.choice(wallpapers)
 wallpaper = os.path.join(wallpaper_path, choice)
-os.system('wal -q -i ' + wallpaper)
+os.system('wal -q -a 80 -i ' + wallpaper)
 colors = []
 
 with open('/home/graeme/.cache/wal/colors', 'r') as file:
@@ -45,16 +45,16 @@ keys = [
     Key([mod], 'j', lazy.layout.down()),
 
     # move windows
-    Key([mod, 'control'], 'Left', lazy.layout.shuffle_left()),
-    Key([mod, 'control'], 'Right', lazy.layout.shuffle_right()),
-    Key([mod, 'control'], 'Up', lazy.layout.shuffle_up()),
-    Key([mod, 'control'], 'Down', lazy.layout.shuffle_down()),
+    Key([mod, 'control'], 'h', lazy.layout.shuffle_left()),
+    Key([mod, 'control'], 'l', lazy.layout.shuffle_right()),
+    Key([mod, 'control'], 'k', lazy.layout.shuffle_up()),
+    Key([mod, 'control'], 'j', lazy.layout.shuffle_down()),
 
     # resize windows
-    Key([mod, 'shift'], 'Left', lazy.layout.grow_left()),
-    Key([mod, 'shift'], 'Right', lazy.layout.grow_right()),
-    Key([mod, 'shift'], 'Up', lazy.layout.grow_up()),
-    Key([mod, 'shift'], 'Down', lazy.layout.grow_down()),
+    Key([mod, 'shift'], 'h', lazy.layout.grow_left()),
+    Key([mod, 'shift'], 'l', lazy.layout.grow_right()),
+    Key([mod, 'shift'], 'k', lazy.layout.grow_up()),
+    Key([mod, 'shift'], 'j', lazy.layout.grow_down()),
 
     # Switch window focus to other pane(s) of stack
     #Key([mod], 'space', lazy.layout.next(), desc='Switch window focus to other pane(s) of stack'),
@@ -84,7 +84,7 @@ keys = [
     #Key([], 'XF86MonBrightnessDown', lazy.spawn('blight set -5%')),
 
     # lock screen / power off / reboot
-    Key([mod, 'shift'], 'l', lazy.spawn('i3lock -i ' + wallpaper)),
+    #Key([mod, 'shift'], 'l', lazy.spawn('i3lock -i ' + wallpaper)),
     #Key([mod], 'l', lazy.spawn('betterlockscreen --lock blur')),
     Key([mod, 'shift'], 'q', lazy.shutdown()),
 
@@ -96,7 +96,7 @@ keys = [
     #Key([mod], 'k', lazy.widget['keyboardlayout'].next_keyboard(), desc='Next keyboard layout'),
 ]
 
-groups = [Group(i) for i in 'asdf']
+groups = [Group(i) for i in 'uiop']
 
 for i in groups:
     keys.extend([
@@ -117,7 +117,7 @@ layout_cfg = {
 }
 
 layouts = [
-    layout.Bsp(**layout_cfg),
+    Bsp(**layout_cfg),
 ]
 
 widget_defaults = dict(

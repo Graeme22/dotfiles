@@ -1,6 +1,6 @@
 keycode   8 =  
 clear lock
-keycode   9 = Caps_Lock NoSymbol Caps_Lock
+keycode   9 =
 keycode  10 = 1 exclam 1 exclam
 keycode  11 = 2 quotedbl 2 quotedbl
 keycode  12 = 3 numbersign 3 numbersign
@@ -39,8 +39,8 @@ keycode  44 = j J j J
 keycode  45 = k K k K
 keycode  46 = l L l L
 keycode  47 = less greater less greater
-keycode  48 = braceleft bracketleft braceleft bracketleft
-keycode  49 = Caps_Lock NoSymbol Caps_Lock
+keycode  48 = bracketleft braceleft bracketleft braceleft
+keycode  49 =
 keycode  50 = Shift_L NoSymbol Shift_L
 keycode  51 = backslash bar backslash bar
 keycode  52 = z Z z Z

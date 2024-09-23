@@ -293,6 +293,7 @@ colors:
   #   `- { index: 16, color: '#ff00ff' }`
   #
   #indexed_colors: []
+  #transparent_background_colors: true
 
 # Bell
 #
