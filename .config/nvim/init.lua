@@ -26,7 +26,7 @@ What is Kickstart?
 
   Kickstart.nvim is a starting point for your own configuration.
     The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
+    what your Kickstart is doing, and modify it to suit your needs.
 
     Once you've done that, you can start exploring, configuring and tinkering to
     make Neovim your own! That might mean leaving Kickstart just the way it is for a while
@@ -181,15 +181,15 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+-- keymap.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Github copilot binding
-vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false,
-})
-vim.g.copilot_no_tab_map = true
+--vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+--  expr = true,
+--  replace_keycodes = false,
+--})
+--vim.g.copilot_no_tab_map = true
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -241,7 +241,33 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'github/copilot.vim',
+  --'github/copilot.vim',
+  {
+    'gbprod/substitute.nvim',
+    config = function()
+      require('substitute').setup()
+      vim.keymap.set('n', 's', require('substitute').operator, { noremap = true })
+      vim.keymap.set('n', 'ss', require('substitute').line, { noremap = true })
+      vim.keymap.set('n', 'S', require('substitute').eol, { noremap = true })
+      vim.keymap.set('x', 's', require('substitute').visual, { noremap = true })
+    end,
+  },
+  {
+    'stevearc/oil.nvim',
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    config = function()
+      require('oil').setup {
+        keymaps = {
+          ['<C-h>'] = false,
+          ['<C-l>'] = false,
+        },
+        view_options = {
+          show_hidden = true,
+        },
+      }
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+    end,
+  },
   {
     'rose-pine/neovim',
     name = 'rose-pine',

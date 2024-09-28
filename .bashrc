@@ -5,15 +5,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-(cat ~/.cache/wal/sequences &)
+cat ~/.cache/wal/sequences
 
-alias ls='ls --color=auto'
 PS1="\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;34m\]\h\[\033[00m\] \[\033[01;36m\]\W\[\033[00m\] $ "
 
 export EDITOR=vim
-export TT_USERNAME=????????
-export TT_PASSWORD=????????
-export TT_ACCOUNT=????????
+set -a; source ~/.env; set +a
+export EDITOR=nvim
 export PATH=$PATH:/home/graeme/.local/bin
 export PATH=$PATH:/home/graeme/.modular/bin
 
