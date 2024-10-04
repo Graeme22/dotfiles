@@ -1,6 +1,6 @@
 keycode   8 =  
 clear lock
-keycode   9 =
+keycode   9 = grave NoSymbol grave
 keycode  10 = 1 exclam 1 exclam
 keycode  11 = 2 quotedbl 2 quotedbl
 keycode  12 = 3 numbersign 3 numbersign

@@ -35,7 +35,7 @@ with open('/home/graeme/.cache/wal/colors', 'r') as file:
         colors.append(file.readline().strip())
 colors.append('#ffffff')
 
-mod = 'mod4'
+mod = 'mod1'  # mod4?
 
 keys = [
     # move focus
@@ -64,7 +64,7 @@ keys = [
     Key([mod], 'b', lazy.spawn('chromium')),
 
     # Toggle between different layouts as defined below
-    Key([mod], 'Tab', lazy.next_layout(), desc='Toggle between layouts'),
+    #Key([mod], 'Tab', lazy.next_layout(), desc='Toggle between layouts'),
     Key([mod], 'w', lazy.window.kill(), desc='Kill focused window'),
 
     # launcher

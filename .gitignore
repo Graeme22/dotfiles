@@ -1,4 +1,6 @@
 .env
+.yarn/
+.yarnrc
 .fonts/
 .mitmproxy/
 .config/pulse/
