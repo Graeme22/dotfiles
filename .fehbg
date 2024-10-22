@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/graeme/.config/qtile/wallpapers/shaded_landscape.png' 

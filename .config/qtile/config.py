@@ -1,5 +1,4 @@
 import os
-import random
 import subprocess
 from typing import List  # noqa: F401
 
@@ -17,23 +16,10 @@ def autostart():
     subprocess.call([dunst])
 
 
-wallpapers = []
-wallpaper_path = '/home/graeme/.config/qtile/wallpapers'
-
-for img in os.listdir(wallpaper_path):
-    full_path = os.path.join(wallpaper_path, img)
-    if os.path.isfile(full_path):
-        wallpapers.append(img)
-
-choice = random.choice(wallpapers)
-wallpaper = os.path.join(wallpaper_path, choice)
-os.system('wal -q -a 80 -i ' + wallpaper)
 colors = []
-
-with open('/home/graeme/.cache/wal/colors', 'r') as file:
+with open('/home/graeme/.colors', 'r') as file:
     for i in range(8):
         colors.append(file.readline().strip())
-colors.append('#ffffff')
 
 mod = 'mod1'  # mod4?
 
@@ -96,7 +82,7 @@ keys = [
     #Key([mod], 'k', lazy.widget['keyboardlayout'].next_keyboard(), desc='Next keyboard layout'),
 ]
 
-groups = [Group(i) for i in 'uiop']
+groups = [Group(i) for i in 'asdf']
 
 for i in groups:
     keys.extend([
@@ -147,7 +133,7 @@ screens = [
             20,
             background=colors[0],
         ),
-        wallpaper=wallpaper
+        #wallpaper=wallpaper
     )
 ]
 

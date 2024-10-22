@@ -259,28 +259,13 @@ require('lazy').setup({
     end,
   },
   {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    event = 'VimEnter',
-    config = function()
-      require('rose-pine').setup {
-        variant = 'main', -- auto, main, moon, or dawn
-        styles = {
-          bold = true,
-          italic = false,
-          transparency = true,
-        },
-      }
-    end,
-  },
-  {
     'catppuccin/nvim',
     name = 'catppuccin',
     priority = 1000,
     event = 'VimEnter',
     config = function()
       require('catppuccin').setup {
-        flavour = 'auto', -- latte, frappe, macchiato, mocha
+        flavour = 'mocha', -- latte, frappe, macchiato, mocha
         term_colors = true, -- set the terminal colors
         transparent_background = true, -- disables setting the background color.
         default_integrations = true,
@@ -321,28 +306,21 @@ require('lazy').setup({
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end, { desc = 'Show Harpoon list' })
 
-      vim.keymap.set('n', '<C-u>', function()
+      vim.keymap.set('n', '<C-a>', function()
         harpoon:list():select(1)
       end, { desc = 'Jump to 1st buffer' })
-      vim.keymap.set('n', '<C-i>', function()
+      vim.keymap.set('n', '<C-s>', function()
         harpoon:list():select(2)
       end, { desc = 'Jump to 2nd buffer' })
-      vim.keymap.set('n', '<C-o>', function()
+      vim.keymap.set('n', '<C-d>', function()
         harpoon:list():select(3)
       end, { desc = 'Jump to 3rd buffer' })
-      vim.keymap.set('n', '<C-p>', function()
+      vim.keymap.set('n', '<C-f>', function()
         harpoon:list():select(4)
       end, { desc = 'Jump to 4th buffer' })
 
-      -- Toggle previous & next buffers stored within Harpoon list
-      vim.keymap.set('n', '<leader>j', function()
-        harpoon:list():prev()
-      end, { desc = 'Jump to previous buffer' })
-      vim.keymap.set('n', '<leader>k', function()
-        harpoon:list():next()
-      end, { desc = 'Jump to next buffer' })
       -- Clear harpoon list
-      vim.keymap.set('n', '<C-d', function()
+      vim.keymap.set('n', '<C-x>', function()
         harpoon:list():clear()
       end, { desc = 'Clear Harpoon list' })
     end,
@@ -911,11 +889,6 @@ require('lazy').setup({
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
-          -- Accept ([y]es) the completion.
-          --  This will auto-import if your LSP supports it.
-          --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
-
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
           ['<Tab>'] = cmp.mapping.confirm { select = true },
@@ -1073,17 +1046,6 @@ require('lazy').setup({
   },
 })
 
-local file = '/home/graeme/.cache/wal/colors'
-local function get_first_line(f)
-  for line in io.lines(f) do
-    return line
-  end
-end
-local do_cat = get_first_line(file) == '#130c13'
-if do_cat then
-  vim.cmd.colorscheme 'catppuccin'
-else
-  vim.cmd.colorscheme 'rose-pine'
-end
+vim.cmd.colorscheme 'catppuccin'
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
