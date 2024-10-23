@@ -1,7 +1,7 @@
 [window]
 opacity = 0.8
 
-[shell]
+[terminal.shell]
 program = "/bin/fish"
 
 [font]
@@ -10,3 +10,5 @@ size = 11.0
 [font.normal]
 family = "Hack Nerd Font Mono"
 style = "Regular"
+
+[terminal]

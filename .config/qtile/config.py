@@ -7,6 +7,8 @@ from libqtile.config import Group, Key, Screen
 from libqtile.layout.bsp import Bsp
 from libqtile.lazy import lazy
 
+WALLPAPER_PATH = '/home/graeme/.config/qtile/wallpapers/shaded_landscape.png'
+
 
 @hook.subscribe.startup
 def autostart():
@@ -70,7 +72,7 @@ keys = [
     #Key([], 'XF86MonBrightnessDown', lazy.spawn('blight set -5%')),
 
     # lock screen / power off / reboot
-    #Key([mod, 'shift'], 'l', lazy.spawn('i3lock -i ' + wallpaper)),
+    Key([mod, 'shift'], 'l', lazy.spawn('i3lock -i ' + WALLPAPER_PATH)),
     #Key([mod], 'l', lazy.spawn('betterlockscreen --lock blur')),
     Key([mod, 'shift'], 'q', lazy.shutdown()),
 

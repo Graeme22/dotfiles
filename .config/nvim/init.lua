@@ -725,6 +725,8 @@ require('lazy').setup({
         htmx = {},
         jinja_lsp = {},
         jsonls = {},
+        ts_ls = {},
+        volar = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -732,7 +734,6 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
         --
 
         lua_ls = {
@@ -768,6 +769,10 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = {
+          'ts_ls',
+          'volar',
+        },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -776,6 +781,34 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
+          end,
+          volar = function()
+            require('lspconfig').volar.setup {}
+          end,
+          ts_ls = function()
+            local vue_ts = require('mason-registry').get_package('vue-language-server'):get_install_path()
+              .. '/node_modules/@vue/language-server'
+              .. '/node_modules/@vue/typescript-plugin'
+            require('lspconfig').ts_ls.setup {
+              init_options = {
+                plugins = {
+                  {
+                    name = '@vue/typescript-plugin',
+                    location = vue_ts,
+                    languages = { 'javascript', 'typescript', 'vue' },
+                  },
+                },
+              },
+              filetypes = {
+                'javascript',
+                'javascriptreact',
+                'javascript.jsx',
+                'typescript',
+                'typescriptreact',
+                'typescript.tsx',
+                'vue',
+              },
+            }
           end,
         },
       }
