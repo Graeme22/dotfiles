@@ -4,7 +4,7 @@
 
 export GPG_TTY=$(tty)
 export EDITOR=nvim
-export LC_ALL=en_US.utf8
+#export LC_ALL=en_US.utf8
 #export GRIM_DEFAULT_DIR="/home/graeme/Pictures"
 #export QT_QPA_PLATFORMTHEME=qt5ct
 #export QT_QPA_PLATFORM=wayland

@@ -725,6 +725,7 @@ require('lazy').setup({
         htmx = {},
         jinja_lsp = {},
         jsonls = {},
+        ruff = {},
         ts_ls = {},
         volar = {},
         -- rust_analyzer = {},
@@ -768,11 +769,8 @@ require('lazy').setup({
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      local lspconfig = require 'lspconfig'
       require('mason-lspconfig').setup {
-        ensure_installed = {
-          'ts_ls',
-          'volar',
-        },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -780,38 +778,32 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-          volar = function()
-            require('lspconfig').volar.setup {}
-          end,
-          ts_ls = function()
-            local vue_ts = require('mason-registry').get_package('vue-language-server'):get_install_path()
-              .. '/node_modules/@vue/language-server'
-              .. '/node_modules/@vue/typescript-plugin'
-            require('lspconfig').ts_ls.setup {
-              init_options = {
-                plugins = {
-                  {
-                    name = '@vue/typescript-plugin',
-                    location = vue_ts,
-                    languages = { 'javascript', 'typescript', 'vue' },
-                  },
-                },
-              },
-              filetypes = {
-                'javascript',
-                'javascriptreact',
-                'javascript.jsx',
-                'typescript',
-                'typescriptreact',
-                'typescript.tsx',
-                'vue',
-              },
-            }
+            lspconfig[server_name].setup(server)
           end,
         },
       }
+
+      -- Vue/volar setup
+      local vue_path = require('mason-registry').get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+      lspconfig.ts_ls.setup {
+        init_options = {
+          plugins = {
+            {
+              name = '@vue/typescript-plugin',
+              location = vue_path,
+              languages = { 'vue' },
+            },
+          },
+        },
+        filetypes = {
+          'typescript',
+          'javascript',
+          'javascriptreact',
+          'typescriptreact',
+          'vue',
+        },
+      }
+      lspconfig.volar.setup {}
     end,
   },
 
