@@ -1,7 +1,6 @@
 # dotfiles
-![screenshot](https://raw.githubusercontent.com/Graeme22/dotfiles/main/screenshot/20211006_18h03m35s_grim.png)
-![screenshot](https://raw.githubusercontent.com/Graeme22/dotfiles/main/screenshot/20211006_18h11m54s_grim.png)
-![screenshot](https://raw.githubusercontent.com/Graeme22/dotfiles/main/screenshot/20211006_18h13m36s_grim.png)
+![2024-10-28-121106_1920x1080_scrot](https://github.com/user-attachments/assets/282a8803-15ca-4b95-9c68-52ddea0cfb7e)
+
 dotfiles for my qtile rice!
 
 ## Details
