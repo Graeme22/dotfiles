@@ -1,4 +1,7 @@
 .env
+.electron-gyp/
+.config/RedisInsight/
+.redis-insight/
 .nuxtrc
 .config/spotifyd/spotifyd.conf
 .config/spotify-tui/client.yml
