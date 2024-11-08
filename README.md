@@ -1,5 +1,6 @@
 # dotfiles
-![2024-10-28-121106_1920x1080_scrot](https://github.com/user-attachments/assets/282a8803-15ca-4b95-9c68-52ddea0cfb7e)
+![2024-11-08-133804_1920x1080_scrot](https://github.com/user-attachments/assets/e402c110-46b5-4415-9b55-8229bf0d1251)
+
 
 dotfiles for my qtile rice!
 
