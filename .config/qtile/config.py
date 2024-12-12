@@ -59,12 +59,12 @@ keys = [
     # restart
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
     # Volume control
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl -- set-sink-volume 0 +5%")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl -- set-sink-volume 0 -5%")),
-    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
+    Key([mod], "plus", lazy.spawn("pactl -- set-sink-volume 0 +5%")),
+    Key([mod], "minus", lazy.spawn("pactl -- set-sink-volume 0 -5%")),
+    Key([mod], "period", lazy.spawn("pactl set-sink-mute 0 toggle")),
     # Brightness
-    # Key([], 'XF86MonBrightnessUp', lazy.spawn('blight set +5%')),
-    # Key([], 'XF86MonBrightnessDown', lazy.spawn('blight set -5%')),
+    Key([mod, "shift"], "plus", lazy.spawn("ddcutil setvcp 10 + 10")),
+    Key([mod, "shift"], "minus", lazy.spawn("ddcutil setvcp 10 - 10")),
     # lock screen / power off / reboot
     Key([mod, "shift"], "l", lazy.spawn("i3lock -i " + WALLPAPER_PATH)),
     # Key([mod], 'l', lazy.spawn('betterlockscreen --lock blur')),

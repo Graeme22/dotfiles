@@ -1,4 +1,7 @@
 .env
+.bun/
+.logfire/
+.config/configstore/
 .electron-gyp/
 .config/RedisInsight/
 .redis-insight/

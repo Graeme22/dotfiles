@@ -7,3 +7,5 @@
 [user]
 	email = graeme.holliday@pm.me
 	name = Graeme Holliday
+[pull]
+	rebase = true
