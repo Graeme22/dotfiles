@@ -1,5 +1,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
@@ -7,9 +9,16 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Make line numbers default
 vim.opt.number = true
+-- You can also add relative line numbers, to help with jumping.
+--  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
+
+-- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
+
+-- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
@@ -69,16 +78,25 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+-- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+-- is not what someone will guess without a bit more experience.
+--
+-- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+-- or just use <C-\><C-n> to exit terminal mode
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
 -- Graeme's keymaps
 vim.keymap.set('n', '<A-j>', '<C-d>zz', { desc = 'Jump half page down' })
 vim.keymap.set('n', '<A-k>', '<C-u>zz', { desc = 'Jump half page up' })
 
 -- Github copilot binding
---vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
---  expr = true,
---  replace_keycodes = false,
---})
---vim.g.copilot_no_tab_map = true
+vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -130,110 +148,14 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  --'github/copilot.vim',
-  {
-    'gbprod/substitute.nvim',
-    config = function()
-      require('substitute').setup()
-      vim.keymap.set('n', 's', require('substitute').operator, { noremap = true })
-      vim.keymap.set('n', 'ss', require('substitute').line, { noremap = true })
-      vim.keymap.set('n', 'S', require('substitute').eol, { noremap = true })
-      vim.keymap.set('x', 's', require('substitute').visual, { noremap = true })
-    end,
-  },
-  {
-    'stevearc/oil.nvim',
-    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
-    config = function()
-      require('oil').setup {
-        keymaps = {
-          ['<C-h>'] = false,
-          ['<C-l>'] = false,
-        },
-        view_options = {
-          show_hidden = true,
-        },
-      }
-      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
-    end,
-  },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000,
-    event = 'VimEnter',
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha', -- latte, frappe, macchiato, mocha
-        term_colors = true, -- set the terminal colors
-        transparent_background = true, -- disables setting the background color.
-        default_integrations = true,
-        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-          conditionals = {},
-        },
-        integrations = {
-          cmp = true,
-          gitsigns = true,
-          nvimtree = true,
-          treesitter = true,
-          notify = false,
-          fidget = true,
-          mason = true,
-          harpoon = true,
-          mini = {
-            enabled = true,
-            indentscope_color = '',
-          },
-        },
-      }
-    end,
-  },
-  {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    config = function()
-      local harpoon = require 'harpoon'
-      harpoon:setup()
 
-      vim.keymap.set('n', '<leader>a', function()
-        harpoon:list():add()
-      end, { desc = 'Add buffer to Harpoon list' })
-      vim.keymap.set('n', '<leader>e', function()
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-      end, { desc = 'Show Harpoon list' })
-
-      vim.keymap.set('n', '<C-a>', function()
-        harpoon:list():select(1)
-      end, { desc = 'Jump to 1st buffer' })
-      vim.keymap.set('n', '<C-s>', function()
-        harpoon:list():select(2)
-      end, { desc = 'Jump to 2nd buffer' })
-      vim.keymap.set('n', '<C-d>', function()
-        harpoon:list():select(3)
-      end, { desc = 'Jump to 3rd buffer' })
-      vim.keymap.set('n', '<C-f>', function()
-        harpoon:list():select(4)
-      end, { desc = 'Jump to 4th buffer' })
-
-      -- Clear harpoon list
-      vim.keymap.set('n', '<C-x>', function()
-        harpoon:list():clear()
-      end, { desc = 'Clear Harpoon list' })
-    end,
-  },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
   --
   -- Use `opts = {}` to force a plugin to be loaded.
   --
-  {
-    'knubie/vim-kitty-navigator',
-    build = 'cp ./*.py ~/.config/kitty/',
-  },
+
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
@@ -263,9 +185,8 @@ require('lazy').setup({
   -- which loads which-key before all the UI elements are loaded. Events can be
   -- normal autocommands events (`:help autocmd-events`).
   --
-  -- Then, because we use the `config` key, the configuration only runs
-  -- after the plugin has been loaded:
-  --  config = function() ... end
+  -- Then, because we use the `opts` key (recommended), the configuration runs
+  -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
@@ -275,7 +196,7 @@ require('lazy').setup({
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
         -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-        -- default whick-key.nvim defined Nerd Font icons, otherwise define a string table
+        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
         keys = vim.g.have_nerd_font and {} or {
           Up = '<Up> ',
           Down = '<Down> ',
@@ -584,6 +505,16 @@ require('lazy').setup({
         end,
       })
 
+      -- Change diagnostic symbols in the sign column (gutter)
+      if vim.g.have_nerd_font then
+        local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
+        local diagnostic_signs = {}
+        for type, icon in pairs(signs) do
+          diagnostic_signs[vim.diagnostic.severity[type]] = icon
+        end
+        vim.diagnostic.config { signs = { text = diagnostic_signs } }
+      end
+
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -631,19 +562,13 @@ require('lazy').setup({
             'vue',
           },
         },
-        volar = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        --
+        volar = {
+          settings = {},
+        },
 
         lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
+          -- cmd = { ... },
+          -- filetypes = { ... },
           -- capabilities = {},
           settings = {
             Lua = {
@@ -708,7 +633,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, vue = true }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
@@ -795,6 +720,11 @@ require('lazy').setup({
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
+          -- Accept ([y]es) the completion.
+          --  This will auto-import if your LSP supports it.
+          --  This will expand snippets if the LSP sent a snippet.
+          --['<C-y>'] = cmp.mapping.confirm { select = true },
+
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
           ['<Tab>'] = cmp.mapping.confirm { select = true },
@@ -839,6 +769,46 @@ require('lazy').setup({
           { name = 'path' },
         },
       }
+    end,
+  },
+
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    event = 'VimEnter',
+    config = function()
+      require('catppuccin').setup {
+        flavour = 'mocha', -- latte, frappe, macchiato, mocha
+        term_colors = true, -- set the terminal colors
+        transparent_background = true, -- disables setting the background color.
+        default_integrations = true,
+        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+          conditionals = {},
+        },
+        integrations = {
+          cmp = true,
+          nvimtree = true,
+          treesitter = true,
+          notify = false,
+          fidget = true,
+          mason = true,
+          harpoon = true,
+          mini = {
+            enabled = true,
+            indentscope_color = '',
+          },
+        },
+      }
+    end,
+    init = function()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      vim.cmd.colorscheme 'catppuccin'
+
+      -- You can configure highlights by doing something like:
+      vim.cmd.hi 'Comment gui=none'
     end,
   },
 
@@ -907,8 +877,72 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  'github/copilot.vim',
+  {
+    'gbprod/substitute.nvim',
+    config = function()
+      require('substitute').setup()
+      vim.keymap.set('n', 's', require('substitute').operator, { noremap = true })
+      vim.keymap.set('n', 'ss', require('substitute').line, { noremap = true })
+      vim.keymap.set('n', 'S', require('substitute').eol, { noremap = true })
+      vim.keymap.set('x', 's', require('substitute').visual, { noremap = true })
+    end,
+  },
+  {
+    'stevearc/oil.nvim',
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    config = function()
+      require('oil').setup {
+        keymaps = {
+          ['<C-h>'] = false,
+          ['<C-l>'] = false,
+        },
+        view_options = {
+          show_hidden = true,
+        },
+      }
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+    end,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon:setup()
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end, { desc = 'Add buffer to Harpoon list' })
+      vim.keymap.set('n', '<leader>e', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = 'Show Harpoon list' })
+      vim.keymap.set('n', '<C-a>', function()
+        harpoon:list():select(1)
+      end, { desc = 'Jump to 1st buffer' })
+      vim.keymap.set('n', '<C-s>', function()
+        harpoon:list():select(2)
+      end, { desc = 'Jump to 2nd buffer' })
+      vim.keymap.set('n', '<C-d>', function()
+        harpoon:list():select(3)
+      end, { desc = 'Jump to 3rd buffer' })
+      vim.keymap.set('n', '<C-f>', function()
+        harpoon:list():select(4)
+      end, { desc = 'Jump to 4th buffer' })
+      -- Clear harpoon list
+      vim.keymap.set('n', '<C-x>', function()
+        harpoon:list():clear()
+      end, { desc = 'Clear Harpoon list' })
+    end,
+  },
+  {
+    'knubie/vim-kitty-navigator',
+    build = 'cp ./*.py ~/.config/kitty/',
+  },
 
-  -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
+  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
 
@@ -922,14 +956,18 @@ require('lazy').setup({
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
+  --
+  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
+  -- Or use telescope!
+  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
+  -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -954,6 +992,3 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
--- Color scheme
-vim.cmd.colorscheme 'catppuccin'

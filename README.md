@@ -5,13 +5,10 @@
 dotfiles for my qtile rice!
 
 ## Details
-- OS: Hardened Artix
-- WM: qtile wayland
-- Terminal: Alacritty
-- File Manager: Ranger
-- Launcher: wofi
+- OS: Arch
+- WM: qtile xorg
+- Terminal: kitty
+- File Manager: ranger
+- Launcher: rofi
 - Fonts: Hack
 - Notifications: dunst
-- Icons: Adwaita
-- Lockscreen: swaylock
-- vim addons: vim-polyglot

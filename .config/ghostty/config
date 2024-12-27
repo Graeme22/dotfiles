@@ -1,0 +1,8 @@
+theme = catppuccin-mocha
+font-family = "Hack Nerd Font Mono"
+font-size = 11.0
+background-opacity = 0.8
+window-decoration = false
+shell-integration = fish
+shell-integration-features = true
+cursor-style = bar

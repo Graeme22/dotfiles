@@ -7,11 +7,11 @@
 
 PS1="\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;34m\]\h\[\033[00m\] \[\033[01;36m\]\W\[\033[00m\] $ "
 
-export EDITOR=vim
 set -a; source ~/.env; set +a
 export EDITOR=nvim
 export PATH=$PATH:/home/graeme/.local/bin
 export PATH=$PATH:/home/graeme/.modular/bin
+export PYRIGHT_PYTHON_FORCE_VERSION=latest
 
 set -o vi
 

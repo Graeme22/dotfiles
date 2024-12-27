@@ -4,7 +4,7 @@ from typing import List  # noqa: F401
 
 from libqtile import bar, hook, widget
 from libqtile.config import Group, Key, Screen
-from libqtile.layout.bsp import Bsp
+from libqtile.layout import Bsp, MonadWide
 from libqtile.lazy import lazy
 
 WALLPAPER_PATH = "/home/graeme/.config/qtile/wallpapers/shaded_landscape.png"
@@ -41,16 +41,13 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.grow_right()),
     Key([mod, "shift"], "k", lazy.layout.grow_up()),
     Key([mod, "shift"], "j", lazy.layout.grow_down()),
-    # Switch window focus to other pane(s) of stack
-    # Key([mod], 'space', lazy.layout.next(), desc='Switch window focus to other pane(s) of stack'),
     # quick launch
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn("chromium")),
     # Toggle between different layouts as defined below
-    # Key([mod], 'Tab', lazy.next_layout(), desc='Toggle between layouts'),
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     # launcher
-    # Key([mod], 'r', lazy.spawn('wofi')),
     Key(
         [mod],
         "r",
@@ -71,7 +68,6 @@ keys = [
     Key([mod, "shift"], "q", lazy.shutdown()),
     # screenshot
     Key([mod], "x", lazy.spawn("scrot")),
-    # Key([mod], 'x', lazy.spawn('grim')),
     # keyboard
     # Key([mod], 'k', lazy.widget['keyboardlayout'].next_keyboard(), desc='Next keyboard layout'),
 ]
@@ -107,6 +103,7 @@ layout_cfg = {
 
 layouts = [
     Bsp(**layout_cfg),
+    MonadWide(**layout_cfg),
 ]
 
 widget_defaults = dict(

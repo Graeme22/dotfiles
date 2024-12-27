@@ -1,4 +1,6 @@
 .env
+.gnupg/
+.config/nvim/.git*
 .bun/
 .logfire/
 .config/configstore/
