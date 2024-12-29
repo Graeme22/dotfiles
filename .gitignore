@@ -99,7 +99,6 @@ snap/
 .config/QtProject.conf
 .config/chromium/
 .config/dconf/
-.config/fish/
 .config/gh/
 .config/github-copilot/
 .config/htop/
