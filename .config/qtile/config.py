@@ -1,6 +1,5 @@
 import os
 import subprocess
-from typing import List  # noqa: F401
 
 from libqtile import bar, hook, widget
 from libqtile.config import Group, Key, Screen
@@ -54,22 +53,23 @@ keys = [
         lazy.spawn("bash /home/graeme/.config/rofi/launchers/misc/launcher.sh"),
     ),
     # restart
-    Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
+    #Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
     # Volume control
-    Key([mod], "plus", lazy.spawn("pactl -- set-sink-volume 0 +5%")),
-    Key([mod], "minus", lazy.spawn("pactl -- set-sink-volume 0 -5%")),
-    Key([mod], "period", lazy.spawn("pactl set-sink-mute 0 toggle")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl -- set-sink-volume 0 +5%")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl -- set-sink-volume 0 -5%")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
     # Brightness
-    Key([mod, "shift"], "plus", lazy.spawn("ddcutil setvcp 10 + 10")),
-    Key([mod, "shift"], "minus", lazy.spawn("ddcutil setvcp 10 - 10")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl -- s +10%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl -- s -10%")),
     # lock screen / power off / reboot
-    Key([mod, "shift"], "l", lazy.spawn("i3lock -i " + WALLPAPER_PATH)),
-    # Key([mod], 'l', lazy.spawn('betterlockscreen --lock blur')),
+    #Key([mod, "shift"], "l", lazy.spawn("swaylock -i " + WALLPAPER_PATH)),
     Key([mod, "shift"], "q", lazy.shutdown()),
     # screenshot
-    Key([mod], "x", lazy.spawn("scrot")),
+    Key([mod], "x", lazy.spawn("grim")),
     # keyboard
     # Key([mod], 'k', lazy.widget['keyboardlayout'].next_keyboard(), desc='Next keyboard layout'),
+    # lid close
+    Key([], "XF86WLAN", lazy.spawn("swaylock -i " + WALLPAPER_PATH)),
 ]
 
 groups = [Group(i) for i in "asdf"]
@@ -128,7 +128,7 @@ screens = [
                 widget.WindowName(format=" {state}{name} "),
                 # widget.Bluetooth(hci='/dev_41_42_30_00_18_CD', fmt=' Bluetooth: {} ', background=colors[6]),
                 # widget.KeyboardLayout(fmt=' Keyboard: {} ', background=colors[6], configured_keyboards=['latam', 'us']),
-                # widget.Battery(charge_char='+', discharge_char='-', full_char='', show_short_text=False, format=' Power: {char}{percent:2.0%} ', background=colors[6], notify_below=10),
+                # TODO: pomodoro, 2nd screen
                 widget.PulseVolume(
                     background=colors[1],
                     fmt=" Volume: {} ",
@@ -142,9 +142,10 @@ screens = [
                     format=" CPU: {freq_current}GHz {load_percent}% ",
                 ),
                 widget.Memory(background=colors[1], fmt=" RAM: {} "),
-                widget.NvidiaSensors(background=colors[6], format=" GPU: {temp}°C "),
+                widget.Battery(charge_char='+', discharge_char='-', full_char='', show_short_text=False, format=' Power: {char}{percent:2.0%} ', background=colors[6], notify_below=10),
+                # widget.NvidiaSensors(background=colors[6], format=" GPU: {temp}°C "),
                 widget.Wlan(
-                    interface="wlan1",
+                    interface="wlan0",
                     background=colors[1],
                     disconnected_message=" Disconnected ",
                     format=" Network: {essid} ",
@@ -154,7 +155,7 @@ screens = [
             20,
             background=colors[0],
         ),
-        # wallpaper=wallpaper
+        wallpaper=WALLPAPER_PATH,
     )
 ]
 

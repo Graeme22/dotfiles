@@ -22,4 +22,4 @@ alias c='clear'
 alias lf='ranger'
 alias vim="nvim"
 
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"

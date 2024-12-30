@@ -4,8 +4,7 @@
 
 export GPG_TTY=$(tty)
 export EDITOR=nvim
-#export LC_ALL=en_US.utf8
-#export GRIM_DEFAULT_DIR="/home/graeme/Pictures"
+export GRIM_DEFAULT_DIR="/home/graeme/Pictures"
 #export QT_QPA_PLATFORMTHEME=qt5ct
 #export QT_QPA_PLATFORM=wayland
 #export ECORE_EVAS_ENGINE=wayland_egl
@@ -18,7 +17,6 @@ export XDG_CURRENT_DESKTOP=qtile
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-	exec startx
+	/home/graeme/.local/bin/pipewire.sh > /dev/null 2>&1
+	[[ $(fgconsole 2>/dev/null) == 1 ]] && exec dbus-run-session qtile start -b wayland
 fi
-
-. "$HOME/.cargo/env"

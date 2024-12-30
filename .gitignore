@@ -1,4 +1,5 @@
 .env
+.dbus/
 .gnupg/
 .config/nvim/.git*
 .bun/
