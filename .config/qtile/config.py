@@ -14,10 +14,12 @@ WALLPAPER_PATH = "/home/graeme/.config/qtile/wallpapers/shaded_landscape.png"
 def autostart():
     kp = os.path.expanduser("~/.local/bin/keepass.sh")
     dunst = os.path.expanduser("~/.local/bin/dunst.sh")
-    xkb = os.path.expanduser("~/.local/bin/xkb.sh")
+    # xkb = os.path.expanduser("~/.local/bin/xkb.sh")
+    wluma = os.path.expanduser("~/.local/bin/wluma.sh")
     subprocess.call([kp])
     subprocess.call([dunst])
-    subprocess.call([xkb])
+    # subprocess.call([xkb])
+    subprocess.call([wluma])
 
 
 colors = []
@@ -180,7 +182,12 @@ focus_on_window_activation = "smart"
 
 # for wayland configuration
 wl_input_rules = {
-    "*": InputConfig(natural_scroll=True, tap=True),
+    "*": InputConfig(
+        natural_scroll=True,
+        tap=True,
+        kb_layout="latam",
+        kb_variant="custom",
+    ),
 }
 
 # hack to make java GUI work
