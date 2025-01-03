@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from libqtile import bar, hook, widget
+from libqtile.backend.wayland import InputConfig
 from libqtile.config import Group, Key, Screen
 from libqtile.layout import Bsp, MonadWide
 from libqtile.lazy import lazy
@@ -47,13 +48,9 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     # launcher
-    Key(
-        [mod],
-        "r",
-        lazy.spawn("bash /home/graeme/.config/rofi/launchers/misc/launcher.sh"),
-    ),
+    Key([mod], "r", lazy.spawn("wofi"), desc="Run launcher"),
     # restart
-    #Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
+    # Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
     # Volume control
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl -- set-sink-volume 0 +5%")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl -- set-sink-volume 0 -5%")),
@@ -62,7 +59,7 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl -- s +10%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl -- s -10%")),
     # lock screen / power off / reboot
-    #Key([mod, "shift"], "l", lazy.spawn("swaylock -i " + WALLPAPER_PATH)),
+    # Key([mod, "shift"], "l", lazy.spawn("swaylock -i " + WALLPAPER_PATH)),
     Key([mod, "shift"], "q", lazy.shutdown()),
     # screenshot
     Key([mod], "x", lazy.spawn("grim")),
@@ -142,7 +139,15 @@ screens = [
                     format=" CPU: {freq_current}GHz {load_percent}% ",
                 ),
                 widget.Memory(background=colors[1], fmt=" RAM: {} "),
-                widget.Battery(charge_char='+', discharge_char='-', full_char='', show_short_text=False, format=' Power: {char}{percent:2.0%} ', background=colors[6], notify_below=10),
+                widget.Battery(
+                    charge_char="+",
+                    discharge_char="-",
+                    full_char="",
+                    show_short_text=False,
+                    format=" Power: {char}{percent:2.0%} ",
+                    background=colors[6],
+                    notify_below=10,
+                ),
                 # widget.NvidiaSensors(background=colors[6], format=" GPU: {temp}°C "),
                 widget.Wlan(
                     interface="wlan0",
@@ -163,13 +168,18 @@ screens = [
 mouse = []
 
 dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = []
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+
+# for wayland configuration
+wl_input_rules = {
+    "*": InputConfig(natural_scroll=True, tap=True),
+}
 
 # hack to make java GUI work
 wmname = "LG3D"

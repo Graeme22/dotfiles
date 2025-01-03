@@ -535,28 +535,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        pylsp = {
-          settings = {
-            pylsp = {
-              plugins = {
-                rope = { enabled = false },
-                mccabe = { enabled = true },
-                black = { enabled = false },
-                autopep8 = { enabled = false },
-                yapf = { enabled = false },
-                flake8 = { enabled = false },
-                pyflakes = { enabled = true },
-                pycodestyle = { enabled = false },
-                pylsp_mypy = { enabled = true },
-                jedi = { fuzzy = true },
-                ruff = {
-                  enabled = true,
-                  formatEnabled = true,
-                },
-              },
-            },
-          },
-        },
+        pyright = {},
         cssls = {},
         docker_compose_language_service = {},
         dockerls = {},
@@ -564,7 +543,7 @@ require('lazy').setup({
         --htmx = {},
         jinja_lsp = {},
         jsonls = {},
-        --ruff = {},
+        ruff = {},
         ts_ls = {
           init_options = {
             plugins = {
