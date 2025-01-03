@@ -1,0 +1,15 @@
+partial alphanumeric_keys xkb_symbols "enes" {
+    include "latam(basic)"
+
+    key <AE12> { [ at, asciitilde ] };
+    key <AB06> { [ n, N, ntilde, Ntilde ] };
+    key <AC10> { [ less, greater ] };
+    key <AE06> { [ 6, ampersand, asciicircum ] };
+    key <CAPS> { [ Escape ] };
+    key <AC11> { [ bracketleft, braceleft ] };
+    key <AD11> { [ bracketright, braceright ] };
+    key <BKSL> { [ backslash, bar ] };
+    key <ESC> { [ dead_acute, grave ] };
+    key <AC07> { [ j, J ] };
+    key <AC08> { [ k, K ] };
+};

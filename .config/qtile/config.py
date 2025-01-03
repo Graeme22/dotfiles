@@ -1,6 +1,5 @@
 import os
 import subprocess
-from typing import List  # noqa: F401
 
 from libqtile import bar, hook, widget
 from libqtile.config import Group, Key, Screen
@@ -14,8 +13,10 @@ WALLPAPER_PATH = "/home/graeme/.config/qtile/wallpapers/shaded_landscape.png"
 def autostart():
     kp = os.path.expanduser("~/.local/bin/keepass.sh")
     dunst = os.path.expanduser("~/.local/bin/dunst.sh")
+    xkb = os.path.expanduser("~/.local/bin/xkb.sh")
     subprocess.call([kp])
     subprocess.call([dunst])
+    subprocess.call([xkb])
 
 
 colors = []
@@ -23,7 +24,7 @@ with open("/home/graeme/.colors", "r") as file:
     for i in range(8):
         colors.append(file.readline().strip())
 
-mod = "mod1"  # mod4?
+mod = "mod4"
 
 keys = [
     # move focus
@@ -72,7 +73,7 @@ keys = [
     # Key([mod], 'k', lazy.widget['keyboardlayout'].next_keyboard(), desc='Next keyboard layout'),
 ]
 
-groups = [Group(i) for i in "asdf"]
+groups = [Group(i) for i in "uiop"]
 
 for i in groups:
     keys.extend(
