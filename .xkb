@@ -1314,11 +1314,11 @@ xkb_symbols "pc+enes(enes)+inet(evdev)" {
     };
     key <AC07> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [               j,               J,       dead_hook,       dead_horn ]
+        symbols[Group1]= [               j,               J,            Next,           Prior ]
     };
     key <AC08> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [               k,               K,             kra,       ampersand ]
+        symbols[Group1]= [               k,               K,           Prior,            Next ]
     };
     key <AC09> {
         type= "FOUR_LEVEL_ALPHABETIC",

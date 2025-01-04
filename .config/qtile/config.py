@@ -24,7 +24,7 @@ with open("/home/graeme/.colors", "r") as file:
     for i in range(8):
         colors.append(file.readline().strip())
 
-mod = "mod4"
+mod = "mod1"
 
 keys = [
     # move focus
@@ -73,7 +73,7 @@ keys = [
     # Key([mod], 'k', lazy.widget['keyboardlayout'].next_keyboard(), desc='Next keyboard layout'),
 ]
 
-groups = [Group(i) for i in "uiop"]
+groups = [Group(i) for i in "asdf"]
 
 for i in groups:
     keys.extend(
