@@ -87,8 +87,8 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Graeme's keymaps
-vim.keymap.set('n', '<A-j>', '<C-d>zz', { desc = 'Jump half page down' })
-vim.keymap.set('n', '<A-k>', '<C-u>zz', { desc = 'Jump half page up' })
+vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Jump half page down' })
+vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Jump half page up' })
 
 -- Github copilot binding
 vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
@@ -98,8 +98,8 @@ vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
 vim.g.copilot_no_tab_map = true
 
 -- splits
-vim.keymap.set('n', '<C-->', '<C-w>v', { desc = 'Split window vertically' })
-vim.keymap.set('n', '<C-\\>', '<C-w>s', { desc = 'Split window horizontally' })
+vim.keymap.set('n', '<C-\\>', '<C-w>v', { desc = 'Split window vertically' })
+vim.keymap.set('n', '<C-->', '<C-w>s', { desc = 'Split window horizontally' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -865,26 +865,26 @@ require('lazy').setup({
     config = function()
       local harpoon = require 'harpoon'
       harpoon:setup()
-      vim.keymap.set('n', '<leader>a', function()
+      vim.keymap.set('n', '<leader>+', function()
         harpoon:list():add()
       end, { desc = 'Add buffer to Harpoon list' })
       vim.keymap.set('n', '<leader>e', function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end, { desc = 'Show Harpoon list' })
-      vim.keymap.set('n', '<C-a>', function()
+      vim.keymap.set('n', '<leader>1', function()
         harpoon:list():select(1)
       end, { desc = 'Jump to 1st buffer' })
-      vim.keymap.set('n', '<C-s>', function()
+      vim.keymap.set('n', '<leader>2', function()
         harpoon:list():select(2)
       end, { desc = 'Jump to 2nd buffer' })
-      vim.keymap.set('n', '<C-d>', function()
+      vim.keymap.set('n', '<leader>3', function()
         harpoon:list():select(3)
       end, { desc = 'Jump to 3rd buffer' })
-      vim.keymap.set('n', '<C-f>', function()
+      vim.keymap.set('n', '<leader>4', function()
         harpoon:list():select(4)
       end, { desc = 'Jump to 4th buffer' })
       -- Clear harpoon list
-      vim.keymap.set('n', '<C-x>', function()
+      vim.keymap.set('n', '<leader>x', function()
         harpoon:list():clear()
       end, { desc = 'Clear Harpoon list' })
     end,

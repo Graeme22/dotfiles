@@ -27,7 +27,7 @@ with open("/home/graeme/.colors", "r") as file:
     for i in range(8):
         colors.append(file.readline().strip())
 
-mod = "mod4"
+mod = "mod1"
 
 keys = [
     # move focus
@@ -73,7 +73,7 @@ keys = [
     Key([], "XF86WLAN", lazy.spawn("swaylock -i " + WALLPAPER_PATH)),
 ]
 
-groups = [Group(i) for i in "uiop"]
+groups = [Group(i) for i in "asdf"]
 
 for i in groups:
     keys.extend(
