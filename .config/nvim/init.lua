@@ -87,8 +87,8 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Graeme's keymaps
-vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Jump half page down' })
-vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Jump half page up' })
+vim.keymap.set('n', '<Down>', '<C-d>zz', { desc = 'Jump half page down' })
+vim.keymap.set('n', '<Up>', '<C-u>zz', { desc = 'Jump half page up' })
 
 -- Github copilot binding
 vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {

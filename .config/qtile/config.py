@@ -15,11 +15,9 @@ def autostart():
     kp = os.path.expanduser("~/.local/bin/keepass.sh")
     dunst = os.path.expanduser("~/.local/bin/dunst.sh")
     # xkb = os.path.expanduser("~/.local/bin/xkb.sh")
-    wluma = os.path.expanduser("~/.local/bin/wluma.sh")
     subprocess.call([kp])
     subprocess.call([dunst])
     # subprocess.call([xkb])
-    subprocess.call([wluma])
 
 
 colors = []
