@@ -5,10 +5,10 @@
 dotfiles for my qtile rice!
 
 ## Details
-- OS: Arch
-- WM: qtile xorg
+- OS: Arch / Artix
+- WM: qtile xorg / wayland
 - Terminal: kitty
 - File Manager: ranger
-- Launcher: rofi
+- Launcher: rofi / wofi
 - Fonts: Hack
 - Notifications: dunst
