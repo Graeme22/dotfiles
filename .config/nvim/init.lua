@@ -91,11 +91,11 @@ vim.keymap.set('n', '<Down>', '<C-d>zz', { desc = 'Jump half page down' })
 vim.keymap.set('n', '<Up>', '<C-u>zz', { desc = 'Jump half page up' })
 
 -- Github copilot binding
-vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false,
-})
-vim.g.copilot_no_tab_map = true
+--vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+--  expr = true,
+--  replace_keycodes = false,
+--})
+--vim.g.copilot_no_tab_map = true
 
 -- splits
 vim.keymap.set('n', '<C-\\>', '<C-w>v', { desc = 'Split window vertically' })
@@ -829,7 +829,7 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-  'github/copilot.vim',
+  --'github/copilot.vim',
   {
     'gbprod/substitute.nvim',
     config = function()

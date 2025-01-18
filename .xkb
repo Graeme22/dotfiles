@@ -1309,20 +1309,20 @@ xkb_symbols "pc+enes(enes)+inet(evdev)" {
         symbols[Group1]= [               g,               G,             eng,             ENG ]
     };
     key <AC06> {
-        type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [               h,               H,         hstroke,         Hstroke ]
+        type= "FOUR_LEVEL_SEMIALPHABETIC",
+        symbols[Group1]= [               h,               H,            Left,            Left ]
     };
     key <AC07> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [               j,               J,            Down,              Up ]
+        symbols[Group1]= [               j,               J,            Down,            Down ]
     };
     key <AC08> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [               k,               K,              Up,            Down ]
+        symbols[Group1]= [               k,               K,              Up,              Up ]
     };
     key <AC09> {
-        type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [               l,               L,         lstroke,         Lstroke ]
+        type= "FOUR_LEVEL_SEMIALPHABETIC",
+        symbols[Group1]= [               l,               L,           Right,           Right ]
     };
     key <AC10> {
         type= "FOUR_LEVEL",
