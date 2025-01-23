@@ -12,4 +12,6 @@ partial alphanumeric_keys xkb_symbols "enes" {
     key <ESC> { [ dead_acute, grave ] };
     key <AC07> { [ j, J, Down, Up ] };
     key <AC08> { [ k, K, Up, Down ] };
+    key <AC06> { [ h, H, Left, Left ] };
+    key <AC09> { [ l, L, Right, Right ] };
 };

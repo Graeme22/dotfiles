@@ -1,6 +1,7 @@
 .env
 .dbus/
 .gnupg/
+.config/BraveSoftware/
 .config/nvim/.git*
 .bun/
 .logfire/

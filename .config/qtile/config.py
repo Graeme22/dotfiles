@@ -13,9 +13,11 @@ WALLPAPER_PATH = "/home/graeme/.config/qtile/wallpapers/shaded_landscape.png"
 @hook.subscribe.startup
 def autostart():
     kp = os.path.expanduser("~/.local/bin/keepass.sh")
+    darkman = os.path.expanduser("~/.local/bin/darkman.sh")
     dunst = os.path.expanduser("~/.local/bin/dunst.sh")
     # xkb = os.path.expanduser("~/.local/bin/xkb.sh")
     subprocess.call([kp])
+    subprocess.call([darkman])
     subprocess.call([dunst])
     # subprocess.call([xkb])
 
@@ -45,7 +47,7 @@ keys = [
     Key([mod, "shift"], "j", lazy.layout.grow_down()),
     # quick launch
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
-    Key([mod], "b", lazy.spawn("chromium")),
+    Key([mod], "b", lazy.spawn("brave")),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),

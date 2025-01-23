@@ -19,5 +19,3 @@ alias ll='ls -lh --color=auto'
 alias c='clear'
 alias lf='ranger'
 alias vim="nvim"
-
-#. "$HOME/.cargo/env"
