@@ -9,3 +9,5 @@
 	name = Graeme Holliday
 [pull]
 	rebase = true
+[init]
+	defaultBranch = master

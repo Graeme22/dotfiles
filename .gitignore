@@ -12,7 +12,15 @@
 .config/spotifyd/spotifyd.conf
 .config/spotify-tui/client.yml
 .config/spotify-tui/.spotify_token_cache.json
+.Wurst*
+.android/
+.config/hatch/
+.config/Google/
 .yarn/
+.gradle/
+.java/
+.jdks/
+Android/
 .yarnrc
 .aws
 .azure

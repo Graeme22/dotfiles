@@ -91,11 +91,11 @@ vim.keymap.set('n', '<Down>', '<C-d>zz', { desc = 'Jump half page down' })
 vim.keymap.set('n', '<Up>', '<C-u>zz', { desc = 'Jump half page up' })
 
 -- Github copilot binding
---vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
---  expr = true,
---  replace_keycodes = false,
---})
---vim.g.copilot_no_tab_map = true
+vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true
 
 -- splits
 vim.keymap.set('n', '<C-\\>', '<C-w>v', { desc = 'Split window vertically' })
@@ -112,6 +112,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+  pattern = '*.html',
+  callback = function()
+    vim.bo.filetype = 'html'
   end,
 })
 
@@ -534,7 +541,7 @@ require('lazy').setup({
         dockerls = {},
         html = {},
         --htmx = {},
-        jinja_lsp = {},
+        --jinja_lsp = {},
         jsonls = {},
         ruff = {},
         ts_ls = {
@@ -699,7 +706,7 @@ require('lazy').setup({
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
 
-        mapping = cmp.mapping.preset.insert {
+        mapping = {
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -829,7 +836,26 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-  --'github/copilot.vim',
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
+      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
+    },
+    build = 'make tiktoken', -- Only on MacOS or Linux
+    opts = {
+      chat_autocomplete = false,
+    },
+    config = function()
+      require('CopilotChat').setup()
+      vim.keymap.set('n', '<leader>?', function()
+        require('CopilotChat').toggle()
+      end, { desc = 'Toggle Copilot Chat' })
+      vim.keymap.set('v', '<leader>?', function()
+        require('CopilotChat').toggle()
+      end, { desc = 'Toggle Copilot Chat' })
+    end,
+  },
   {
     'gbprod/substitute.nvim',
     config = function()

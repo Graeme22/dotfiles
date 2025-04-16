@@ -172,4 +172,4 @@ auto_fullscreen = True
 focus_on_window_activation = "smart"
 
 # hack to make java GUI work
-wmname = "LG3D"
+wmname = "qtile"
