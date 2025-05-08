@@ -1,4 +1,7 @@
 .env
+keepers/
+wedding*
+cmd.txt
 *.age
 .gnupg/
 .config/nvim/.git*
