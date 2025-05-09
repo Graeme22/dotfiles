@@ -47,7 +47,7 @@ keys = [
     Key([mod, "shift"], "j", lazy.layout.grow_down()),
     # quick launch
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
-    Key([mod], "b", lazy.spawn("brave")),
+    Key([mod], "b", lazy.spawn("chromium")),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),

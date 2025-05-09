@@ -7,6 +7,7 @@ export EDITOR=nvim
 export GRIM_DEFAULT_DIR="/home/graeme/Pictures"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export XDG_CURRENT_DESKTOP=qtile
+export XDG_SESSION_TYPE=wayland
 export XDG_DATA_DIRS="/usr/local/share:/usr/share:/home/graeme/.local/share"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
